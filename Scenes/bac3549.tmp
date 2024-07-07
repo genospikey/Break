@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://e2b5j8oo8y2j"]
+
+[ext_resource type="Script" path="res://Scripts/BackgroundGenerator.gd" id="1_t5oi7"]
+[ext_resource type="Texture2D" uid="uid://cc026r6n3ftka" path="res://Assets/Textures/white_square.png" id="2_bglip"]
+
+[node name="BackgroundGenerator" type="Node2D"]
+process_mode = 3
+z_index = -1000
+script = ExtResource("1_t5oi7")
+metadata/_edit_lock_ = true
+
+[node name="BaseColorSprite" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(31.5, 62.5)
+texture = ExtResource("2_bglip")
+centered = false
+
+[node name="SpriteBase" type="Node2D" parent="."]

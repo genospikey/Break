@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1e5gcrwt2i71"]
+
+[ext_resource type="Script" path="res://Scripts/Game.gd" id="1_7u6dx"]
+[ext_resource type="Script" path="res://Scripts/RockGenerator.gd" id="2_pxo6r"]
+[ext_resource type="PackedScene" uid="uid://e2b5j8oo8y2j" path="res://Scenes/background_generator.tscn" id="4_0vhxa"]
+[ext_resource type="PackedScene" uid="uid://dvbpr3gk3oj7h" path="res://Scenes/ui.tscn" id="4_y08s6"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_7u6dx")
+
+[node name="RockGenerator" type="Node2D" parent="."]
+script = ExtResource("2_pxo6r")
+
+[node name="UI" parent="." instance=ExtResource("4_y08s6")]
+process_mode = 3
+
+[node name="BackgroundGenerator" parent="." instance=ExtResource("4_0vhxa")]

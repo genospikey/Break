@@ -1,0 +1,459 @@
+[gd_scene load_steps=20 format=3 uid="uid://dvbpr3gk3oj7h"]
+
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_ih3d4"]
+[ext_resource type="Texture2D" uid="uid://brcichbkh6oop" path="res://Assets/Textures/icon_play.png" id="2_rluqp"]
+[ext_resource type="Texture2D" uid="uid://0uxog18dty5r" path="res://Assets/Textures/icon_pause.png" id="2_rp1nv"]
+[ext_resource type="Texture2D" uid="uid://c3xa2hp56o0cg" path="res://Assets/Textures/icon_pause_presssed.png" id="3_0pe3l"]
+[ext_resource type="Texture2D" uid="uid://ccpry138n8fq7" path="res://Assets/Textures/icon_play_pressed.png" id="3_15k7q"]
+[ext_resource type="Texture2D" uid="uid://dbmbf51qv5fkl" path="res://Assets/Textures/icon_x.png" id="4_fnbx8"]
+[ext_resource type="Texture2D" uid="uid://b3kgncrpkyhk3" path="res://Assets/Textures/icon_x_pressed.png" id="5_b1v0v"]
+[ext_resource type="Texture2D" uid="uid://c0pj4xvj1kxs4" path="res://Assets/Textures/icon_menu.png" id="6_dwtl8"]
+[ext_resource type="Texture2D" uid="uid://d2f4u1n2wuspq" path="res://Assets/Textures/icon_menu_pressed.png" id="7_s2yfl"]
+[ext_resource type="Texture2D" uid="uid://e8yyqywbkghi" path="res://Assets/Textures/rock.png" id="10_o8f5k"]
+[ext_resource type="AudioStream" uid="uid://b7julongyphel" path="res://Assets/Sounds/rockhit.wav" id="11_p14e7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2fkst"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_jqdvr"]
+font_size = 45
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hbf2d"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_f2xl5"]
+font_size = 64
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_m3j5l"]
+font_size = 24
+
+[sub_resource type="Animation" id="Animation_qw3xo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1219, -63)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8ibea"]
+resource_name = "sweep"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1219, -63), Vector2(549, -63)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"emit_change"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lq5rm"]
+_data = {
+"RESET": SubResource("Animation_qw3xo"),
+"sweep": SubResource("Animation_8ibea")
+}
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_ih3d4")
+
+[node name="GameControl" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ScoreLabel" type="Label" parent="GameControl"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -44.0
+offset_right = 172.0
+offset_bottom = -16.0
+grow_vertical = 0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_2fkst")
+
+[node name="TimerLabel" type="Label" parent="GameControl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.0
+offset_top = 64.0
+offset_right = 42.0
+offset_bottom = 112.0
+grow_horizontal = 2
+text = "99"
+label_settings = SubResource("LabelSettings_jqdvr")
+horizontal_alignment = 1
+
+[node name="TimerTopLabel" type="Label" parent="GameControl/TimerLabel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_top = -33.0
+offset_right = 93.0
+offset_bottom = -5.0
+grow_horizontal = 2
+text = "Time Left:"
+label_settings = SubResource("LabelSettings_hbf2d")
+horizontal_alignment = 1
+
+[node name="PauseButton" type="TextureButton" parent="GameControl"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -56.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("2_rp1nv")
+texture_pressed = ExtResource("3_0pe3l")
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="TextureButton" parent="MainMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = 108.0
+offset_right = -111.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture_normal = ExtResource("2_rluqp")
+texture_pressed = ExtResource("3_15k7q")
+
+[node name="QuitButton" type="TextureButton" parent="MainMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 73.0
+offset_top = 108.0
+offset_right = 113.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture_normal = ExtResource("4_fnbx8")
+texture_pressed = ExtResource("5_b1v0v")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -267.0
+offset_top = -252.0
+offset_right = 267.0
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.592157)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 10
+bbcode_enabled = true
+text = "[wave][font_size=95][center][b]Break[/b][/center][/font_size][/wave]"
+
+[node name="PauseMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="TextureButton" parent="PauseMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = 108.0
+offset_right = -111.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture_normal = ExtResource("2_rluqp")
+texture_pressed = ExtResource("3_15k7q")
+
+[node name="MenuButton" type="TextureButton" parent="PauseMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 73.0
+offset_top = 108.0
+offset_right = 113.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture_normal = ExtResource("6_dwtl8")
+texture_pressed = ExtResource("7_s2yfl")
+stretch_mode = 0
+
+[node name="TitleLabel" type="Label" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_top = -153.5
+offset_right = 134.0
+offset_bottom = -86.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "-Paused-"
+label_settings = SubResource("LabelSettings_f2xl5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorBG" type="ColorRect" parent="PauseMenu"]
+z_index = -50
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -179.0
+offset_right = 268.0
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.235294)
+
+[node name="EndMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndScoreLabel" type="Label" parent="EndMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.5
+offset_top = -124.5
+offset_right = 79.5
+offset_bottom = -67.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Time Elapsed: 99
+
+Score: 999999
+High Score: 999999"
+label_settings = SubResource("LabelSettings_m3j5l")
+horizontal_alignment = 2
+justification_flags = 170
+
+[node name="PlayButton2" type="TextureButton" parent="EndMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = 108.0
+offset_right = -111.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture_normal = ExtResource("2_rluqp")
+texture_pressed = ExtResource("3_15k7q")
+
+[node name="MenuButton2" type="TextureButton" parent="EndMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 73.0
+offset_top = 108.0
+offset_right = 113.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture_normal = ExtResource("6_dwtl8")
+texture_pressed = ExtResource("7_s2yfl")
+stretch_mode = 0
+
+[node name="ColorBG2" type="ColorRect" parent="EndMenu"]
+z_index = -50
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -179.0
+offset_right = 268.0
+offset_bottom = 223.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.235294)
+
+[node name="Transition" type="TextureRect" parent="."]
+z_index = 10
+texture_filter = 1
+offset_left = -1219.0
+offset_top = -63.0
+offset_right = -56.0
+offset_bottom = 1057.0
+mouse_filter = 2
+texture = ExtResource("10_o8f5k")
+
+[node name="ColorRect" type="ColorRect" parent="Transition"]
+z_index = -1
+layout_mode = 0
+offset_left = -608.0
+offset_top = -6.0
+offset_right = 660.0
+offset_bottom = 1121.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Transition")
+libraries = {
+"": SubResource("AnimationLibrary_lq5rm")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_p14e7")
+volume_db = -8.237
+pitch_scale = 0.65
+
+[connection signal="pressed" from="GameControl/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="MainMenu/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainMenu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/PlayButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="PauseMenu/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="EndMenu/PlayButton2" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="EndMenu/MenuButton2" to="." method="_on_menu_button_pressed"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcls27ip45sgh"]
+
+[ext_resource type="Script" path="res://Scripts/RockSpray.gd" id="1_1ktug"]
+[ext_resource type="Texture2D" uid="uid://d2rjhdy8nrbf2" path="res://Assets/Textures/badrock.png" id="1_ywddl"]
+[ext_resource type="AudioStream" uid="uid://b7julongyphel" path="res://Assets/Sounds/rockhit.wav" id="3_dqic4"]
+
+[sub_resource type="Curve" id="Curve_fiutu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="BadSpray" type="CPUParticles2D"]
+emitting = false
+amount = 18
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_ywddl")
+emission_shape = 1
+emission_sphere_radius = 40.0
+direction = Vector2(0, -1)
+spread = 64.55
+gravity = Vector2(0, -100)
+initial_velocity_min = 75.0
+initial_velocity_max = 350.0
+angular_velocity_min = 10.0
+angular_velocity_max = 10.0
+damping_max = 4.839
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_fiutu")
+script = ExtResource("1_1ktug")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_dqic4")
+pitch_scale = 0.5
+autoplay = true
